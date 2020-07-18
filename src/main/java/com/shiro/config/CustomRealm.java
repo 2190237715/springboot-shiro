@@ -4,10 +4,7 @@ import com.shiro.pojo.Permissions;
 import com.shiro.pojo.Role;
 import com.shiro.pojo.User;
 import com.shiro.service.LoginService;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -46,10 +43,14 @@ public class CustomRealm extends AuthorizingRealm {
         }
         //获取用户信息
         String name = authenticationToken.getPrincipal().toString();
+        String password = new String((char[]) authenticationToken.getCredentials());
         User user = loginService.getUserByName(name);
         if (user == null) {
             //这里返回后会报出对应异常
             return null;
+        } else if (!password.equals(user.getPassword())) {
+            System.out.println(password+"=========="+user.getPassword());
+            throw new IncorrectCredentialsException("用户名或密码错误！");
         } else {
             //这里验证authenticationToken和simpleAuthenticationInfo的信息
             SimpleAuthenticationInfo simpleAuthenticationInfo = new SimpleAuthenticationInfo(name, user.getPassword().toString(), getName());

@@ -40,8 +40,8 @@ public class LoginServiceImpl implements LoginService {
         roleSet1.add(role1);
         Set<Role> roleSet2 = new HashSet<>();
         roleSet2.add(role2);
-        User xiaoxin = new User("1", "xiaoxin", "0219", roleSet1);
-        User xiaoxia = new User("1", "xiaoxia", "0217", roleSet2);
+        User xiaoxin = new User("1", "xiaoxin", "f744e04d0c8d72b82ec9c94f1b866698", roleSet1);
+        User xiaoxia = new User("2", "xiaoxia", "b8af9e96f332f46e9905760e7dd4d8ad", roleSet2);
         Map<String, User> userMap = new HashMap<>();
         userMap.put(xiaoxin.getUserName(), xiaoxin);
         userMap.put(xiaoxia.getUserName(), xiaoxia);
